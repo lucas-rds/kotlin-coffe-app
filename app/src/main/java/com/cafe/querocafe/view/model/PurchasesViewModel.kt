@@ -4,9 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.cafe.querocafe.model.Purchase
+import javax.inject.Inject
 
 
-class PurchasesViewModel() : ViewModel() {
+class PurchasesViewModel @Inject constructor() : ViewModel() {
 
     private val _purchases = MutableLiveData<List<Purchase>>().apply { value = emptyList() }
 

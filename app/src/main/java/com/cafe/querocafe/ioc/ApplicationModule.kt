@@ -5,7 +5,7 @@ import com.cafe.querocafe.model.Person
 import dagger.Module
 import dagger.Provides
 
-@Module
+@Module(includes = [ViewModelsModule::class])
 class ApplicationModule(private val app: Application) {
 
     @Provides

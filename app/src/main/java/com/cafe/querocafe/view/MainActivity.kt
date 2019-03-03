@@ -7,11 +7,11 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
-import com.cafe.querocafe.App
 import com.cafe.querocafe.R
 import com.cafe.querocafe.databinding.ActivityMainBinding
-import com.cafe.querocafe.extensions.view.snackbar
+import com.cafe.querocafe.extensions.view.*
 import com.cafe.querocafe.model.Person
 import com.cafe.querocafe.view.model.PurchasesViewModel
 import com.google.android.material.navigation.NavigationView
@@ -19,19 +19,25 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import javax.inject.Inject
 
+
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
-    private lateinit var _binding: ActivityMainBinding
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
 
     @Inject
     lateinit var lucas: Person
 
+    private lateinit var _model: PurchasesViewModel
+    private lateinit var _binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        (application as App).component.inject(this)
-        val model = ViewModelProviders.of(this).get(PurchasesViewModel::class.java)
-        _binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        _binding.model = model
+
+        ioc.inject(this)
+        _model = getViewModel(viewModelFactory)
+        _binding = dataBindView(R.layout.activity_main)
+        _binding.model = _model
 
         setSupportActionBar(_binding.appBarMain.toolbar)
 
