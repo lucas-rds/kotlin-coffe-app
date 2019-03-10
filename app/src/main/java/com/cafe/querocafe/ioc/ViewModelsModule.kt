@@ -2,7 +2,7 @@ package com.cafe.querocafe.ioc
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.cafe.querocafe.view.model.PurchasesViewModel
+import com.cafe.querocafe.model.view.PurchasesViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap

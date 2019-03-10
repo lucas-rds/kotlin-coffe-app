@@ -5,26 +5,20 @@ import com.cafe.querocafe.model.Purchase
 import com.cafe.querocafe.model.Shop
 import java.math.BigDecimal
 import java.util.*
+import javax.inject.Inject
 
-class PurchaseRepository : Repository<Purchase, Int> {
+class PurchaseRepository @Inject constructor() : Repository<Purchase, Int> {
 
     override fun getAll(): List<Purchase> {
-        return listOf(
+        return List(10) {
             Purchase(
-                1,
-                Person("lucas"),
-                BigDecimal(2),
-                Shop("Café do ponto"),
-                Date()
-            ),
-            Purchase(
-                2,
-                Person("lucas"),
-                BigDecimal(5),
-                Shop("Starbucks"),
+                it,
+                Person(listOf("Lucas", "Marcelo", "Thiago", "Adriano").random()),
+                BigDecimal((10L..30).random()),
+                Shop(listOf("Café do ponto", "Starbucks", "Brounie", "Malabarista").random()),
                 Date()
             )
-        )
+        }
     }
 
     override fun getByPk(primaryKey: Int): Purchase? {

@@ -1,32 +1,31 @@
-package com.cafe.querocafe.view
+package com.cafe.querocafe.activities
 
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.cafe.querocafe.R
+import com.cafe.querocafe.adapters.PurchasesAdapter
 import com.cafe.querocafe.databinding.ActivityMainBinding
-import com.cafe.querocafe.extensions.view.*
-import com.cafe.querocafe.model.Person
-import com.cafe.querocafe.view.model.PurchasesViewModel
+import com.cafe.querocafe.model.view.PurchasesViewModel
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import javax.inject.Inject
-
+import androidx.lifecycle.Observer
+import com.cafe.querocafe.extensions.dataBindView
+import com.cafe.querocafe.extensions.getViewModel
+import com.cafe.querocafe.extensions.ioc
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-
-    @Inject
-    lateinit var lucas: Person
 
     private lateinit var _model: PurchasesViewModel
     private lateinit var _binding: ActivityMainBinding
@@ -40,16 +39,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         _binding.model = _model
 
         setSupportActionBar(_binding.appBarMain.toolbar)
-
-        fab.setOnClickListener {
-            it.snackbar("Xablau")
-                .setAction("Action") { view -> println(view.alpha) }
-                .show()
-        }
-
         setupDrawer()
+        setupRecyclerView()
+    }
 
-        println(lucas.name)
+    private fun setupRecyclerView() {
+        val adapter = PurchasesAdapter(emptyList(), View.OnClickListener {  })
+        val recyclerView = _binding.appBarMain.contentMain.purchasesRecyclerView
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = adapter
+        _binding.executePendingBindings()
+        _model.purchases.observe(this, Observer { it?.let(adapter::setData) })
+        _model.getPurchases()
     }
 
     private fun setupDrawer() {

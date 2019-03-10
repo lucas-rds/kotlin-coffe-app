@@ -1,4 +1,4 @@
-package com.cafe.querocafe.extensions.view
+package com.cafe.querocafe.extensions
 
 import android.view.View
 import com.google.android.material.snackbar.Snackbar

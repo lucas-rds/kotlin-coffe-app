@@ -1,10 +1,9 @@
 package com.cafe.querocafe.ioc
 
 import com.cafe.querocafe.App
-import com.cafe.querocafe.view.MainActivity
+import com.cafe.querocafe.activities.MainActivity
 import dagger.Component
 import dagger.android.AndroidInjectionModule
-import dagger.android.support.AndroidSupportInjectionModule
 import javax.inject.Singleton
 
 @Singleton

@@ -6,7 +6,7 @@
         tools:openDrawer="start">
 
     <data>
-        <variable name="model" type="com.cafe.querocafe.view.model.PurchasesViewModel"/>
+        <variable name="model" type="com.cafe.querocafe.model.view.PurchasesViewModel"/>
     </data>
 
     <androidx.drawerlayout.widget.DrawerLayout

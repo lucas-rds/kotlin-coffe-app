@@ -1,4 +1,4 @@
-package com.cafe.querocafe.extensions.view
+package com.cafe.querocafe.extensions
 
 import android.app.Activity
 import android.content.Intent
